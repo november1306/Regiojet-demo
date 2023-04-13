@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew assemble
 
       - name: Run tests with Gradle
-        run: ./gradlew test -- info
+        run: ./gradlew test --info
 
   upload_results:
     needs: run-tests
