@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew assemble
 
       - name: Run tests with Gradle
-        run: ./gradlew test
+        run: ./gradlew test -- info
 
   upload_results:
     needs: run-tests
@@ -46,4 +46,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: /home/runner/work/Regiojet-demo/Regiojet-demo/build/reports/tests/test/index.html
+          path: /home/runner/work/Regiojet-demo/Regiojet-demo/build/reports/
