@@ -45,11 +45,12 @@ jobs:
       - name: Run tests with Gradle
         run: ./gradlew test
 
-    upload_results:
-      needs: run_tests
-      if: always()
-      runs-on: ubuntu-latest
-    uses: actions/upload-artifact@v3
-    with:
-      name: test-results
-      path: build/test-results
+  upload_results:
+    needs: run-tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: build/test-results
