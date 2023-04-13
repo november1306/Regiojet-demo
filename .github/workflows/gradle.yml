@@ -13,39 +13,43 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  run-tests:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
 
-    - name: Install Google Chrome
-      run: |
-        set -ex
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install ./google-chrome-stable_current_amd64.deb
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle-
 
-    - name: Make Gradlew executable
-      run: chmod +x gradlew
+      - name: Install Google Chrome
+        run: |
+          set -ex
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome-stable_current_amd64.deb
 
-#    - name: Build with Gradle
-#      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-#      with:
-#        arguments: build
-    - name: Build with Gradle
-      run: ./gradlew assemble
+      - name: Make Gradlew executable
+        run: chmod +x gradlew
 
-    - name: Run tests with Gradle
-      run: ./gradlew test
+      - name: Build with Gradle
+        run: ./gradlew assemble
 
-    - name: Upload test results
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results
-        path: build/test-results
+      - name: Run tests with Gradle
+        run: ./gradlew test
+
+    upload_results:
+      needs: run_tests
+      if: always()
+      runs-on: ubuntu-latest
+    uses: actions/upload-artifact@v3
+    with:
+      name: test-results
+      path: build/test-results
