@@ -22,19 +22,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          cache: gradle
 
       - name: Install Google Chrome
         run: |
-          set -ex
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install ./google-chrome-stable_current_amd64.deb
+          chmod +x ./scripts/InstallChrome.sh
+                      ./scripts/InstallChrome.sh
 
       - name: Make Gradlew executable
         run: chmod +x gradlew
