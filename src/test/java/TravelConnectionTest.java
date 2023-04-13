@@ -18,6 +18,10 @@ public class TravelConnectionTest extends BaseTest {
         homePage.clickSearch();
         new SearchResults().printResults();
 
+/**        At the same time make sure that all the connections that have been found meet the input criteria
+ //        (departure time, place of the departure, place of the arrival and whether
+ //         it is a direct or indirect connection).
+ */
         assertTrue(true);
     }
 }
