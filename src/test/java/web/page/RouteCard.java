@@ -1,4 +1,4 @@
-package page;
+package web.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -61,15 +61,6 @@ public class RouteCard {
         return transfers;
     }
 
-    public int getNumberOfStops() {
-        String transfersText = getTransfers().getText();
-        if (transfersText.contains("Direct")) {
-            return 0;
-        } else {
-            return Integer.parseInt(transfersText.split(" ")[0]);
-        }
-    }
-
     public void chooseThisRoute() {
         price.click();
     }
@@ -78,10 +69,6 @@ public class RouteCard {
         String priceText = price.getText();
         Matcher matcher = PRICE_PATTERN.matcher(priceText);
         if (matcher.find()) {
-//            String currencyCode = matcher.group(1);
-//            if (currencyCode == null || currencyCode.equals("&nbsp;")) {
-//                currencyCode = "EUR"; // set default currency to EUR
-//            }
             String priceValue = matcher.group(2).replace(",", ".");
             return new BigDecimal(priceValue).setScale(2, RoundingMode.HALF_UP);
         } else {

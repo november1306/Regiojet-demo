@@ -1,8 +1,10 @@
+package web;
+
 import com.codeborne.selenide.WebDriverConditions;
 import org.junit.jupiter.api.Test;
-import page.HomePage;
-import page.RouteCard;
-import page.SearchResults;
+import web.page.HomePage;
+import web.page.RouteCard;
+import web.page.SearchResults;
 
 import java.util.Comparator;
 import java.util.List;

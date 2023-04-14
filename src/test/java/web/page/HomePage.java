@@ -1,4 +1,4 @@
-package page;
+package web.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -8,15 +8,15 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class HomePage
 {
-    private SelenideElement departureDateButton = $(".w-40[data-id='departure-date']");
-    private SelenideElement searchOverlay = $(".searchBox-overlay");
-    private SelenideElement fromCityExpand = $$(".city-select").first();
-    private SelenideElement toCityExpand = $$(".city-select").last();
+    private final SelenideElement departureDateButton = $(".w-40[data-id='departure-date']");
+    private final SelenideElement searchOverlay = $(".searchBox-overlay");
+    private final SelenideElement fromCityExpand = $$(".city-select").first();
+    private final SelenideElement toCityExpand = $$(".city-select").last();
     private SelenideElement fromCityInput = $$(".react-select__input").first();
     private SelenideElement toCityInput = $$(".react-select__input").last();
-    private SelenideElement firstDropdownOption = $(".react-select__option--is-focused"); // 3h to get this locator (sic!)
-    private SelenideElement searchButton = $("button[data-id='search-btn']");
-    private SelenideElement cookiesAllowAll = $(byText("ALLOW ALL"));
+    private final SelenideElement firstDropdownOption = $(".react-select__option--is-focused"); // 3h to get this locator (sic!)
+    private final SelenideElement searchButton = $("button[data-id='search-btn']");
+    private final SelenideElement cookiesAllowAll = $(byText("ALLOW ALL"));
 
     public void openHomePage() {
         open("https://regiojet.com/");
@@ -52,9 +52,8 @@ public class HomePage
         return datePicker;
     }
 
-    public HomePage clickSearch() {
+    public void clickSearch() {
         searchButton.click();
-        return this;
     }
 
 }
