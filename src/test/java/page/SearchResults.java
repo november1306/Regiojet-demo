@@ -10,36 +10,24 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.$;
 
 public class SearchResults {
-    private SelenideElement container = $("ul[aria-label='Search results']");
+    private final SelenideElement container = $("ul[aria-label='Search results']");
 
     public SearchResults() {
         container.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 
-    public RouteCard record(int index) {
+    public RouteCard card(int index) {
         return new RouteCard(container.$(".card.pt-2", index));
     }
 
-//    public List<RouteCard> getAllResults()
-//    {
-//        return container.$$(".card.pt-2")
-//                .stream()
-//
-//                .map(RouteCard::new)
-//                .collect(Collectors.toList());
-//
-//    }
+    public int cardCount() {
+        return container.$$(".card.pt-2").size();
+    }
 
-    public void printResults() {
-        List<RouteCard> cards = container.$$(".card.pt-2")
+    public List<RouteCard> allRecords() {
+        return container.$$(".card.pt-2")
                 .asDynamicIterable().stream()
                 .map(RouteCard::new)
                 .collect(Collectors.toList());
-
-        for (RouteCard card : cards) {
-            System.out.println(card.toString());
-        }
-
     }
-
 }
