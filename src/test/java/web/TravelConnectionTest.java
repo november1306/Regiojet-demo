@@ -106,4 +106,6 @@ public class TravelConnectionTest extends BaseTest {
         optimalConnection.chooseThisRoute();
         webdriver().shouldHave(WebDriverConditions.urlContaining("/reservation"));
     }
+
+
 }
